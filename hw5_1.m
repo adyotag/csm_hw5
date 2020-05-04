@@ -4,37 +4,37 @@ delta_t = [0.5, 0.25, 0.125];   % time increment and final time information
 global gamma; gamma = 0.75; 
 global tau; tau = 1.;
 
-% NR, delta_t = 0.5
+fprintf("\nNR, delta_t = 0.5");
 tic;
 obj1 = NR(@stressR, @stressInc, @HInc, false, delta_t(1));
 obj1.solve();
 toc;
 
-% NR, delta_t = 0.25
+fprintf("\nNR, delta_t = 0.25");
 tic;
 obj2 = NR(@stressR, @stressInc, @HInc, false, delta_t(2));
 obj2.solve();
 toc;
 
-% NR, delta_t = 0.125
+fprintf("\nNR, delta_t = 0.125");
 tic;
 obj3 = NR(@stressR, @stressInc, @HInc, false, delta_t(3));
 obj3.solve();
 toc;
 
-% Modified NR, delta_t = 0.5
+fprintf("\nModified NR, delta_t = 0.5");
 tic;
 obj4 = NR(@stressR, @stressInc, @HInc, true, delta_t(1));
 obj4.solve();
 toc;
 
-% Modified NR, delta_t = 0.25
+fprintf("\nModified NR, delta_t = 0.25");
 tic;
 obj5 = NR(@stressR, @stressInc, @HInc, true, delta_t(2));
 obj5.solve();
 toc;
 
-% Modified NR, delta_t = 0.125
+fprintf("\nModified NR, delta_t = 0.125");
 tic;
 obj6 = NR(@stressR, @stressInc, @HInc, true, delta_t(3));
 obj6.solve();
@@ -71,14 +71,14 @@ for i = 1:6
    if length(ratios) > 10 
         ratios = ratios(1:10);
    end
-   plot(1:length(ratios), ratios); hold on
+   plot(0:(length(ratios)-1), ratios); hold on
     
 
 end
 legend('NR $$\Delta t$$ = 0.5', 'NR $$\Delta t$$ = 0.25', 'NR $$\Delta t$$ = 0.125', ...
        'MNR $$\Delta t$$ = 0.5', 'MNR $$\Delta t$$ = 0.25', 'MNR $$\Delta t$$ = 0.125', 'interpreter', 'latex')
-title('Residuals over Iterations Until Convergence at Various Time Intervals')
-xlabel('Time, $$t$$', 'interpreter', 'latex'); ylabel('$$\log \left| \frac{R}{R_0} \right|$$', 'interpreter', 'latex')
+title('Residuals over Iterations Until Convergence at t = 0.5')
+xlabel('Iterations', 'interpreter', 'latex'); ylabel('$$\log \left| \frac{R}{R_0} \right|$$', 'interpreter', 'latex')
 
 %%%%%%%%%%% RELEVANT FUNCTIONS %%%%%%%%%%%
 
