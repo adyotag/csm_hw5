@@ -1,6 +1,6 @@
 classdef NR < handle
    properties
-        init_guess = 0.005;                                            % default inital guess for iterative method
+        init_guess = 0.05;                                            % default inital guess for iterative method
         stressR = NaN; residual_handle = NaN;                       % stressR is the loading function specified in the problem statement, strainR is either the first or second constitutive law
         stressInc = NaN; HInc = NaN; init_strain = 0; init_H = 0;   % stressInc and HInc are functions to solve for stress and history variable at next time step
         modified = false; first_exec = true;                        % if modified is true, then we perform modified Newton Raphson method; first_exec detects whether we performed a first iteration
@@ -68,18 +68,20 @@ classdef NR < handle
                
                % As a check to see we don't have convergence for strain
                if isnan(self.strain_ev(i+1))
-                    fprintf("\nTime %f :\tWARNING! NO CONVERGENCE! NEXT STRAIN IS NaN!\n\n", self.t_list(i));
-                    break 
+                    fprintf("\nTime %f :\tWARNING! NO CONVERGENCE! NEXT STRAIN IS NaN!", self.t_list(i));
                end
                
                cH = self.HInc(cH, self.delta_t, self.strain_ev(i+1), self.strain_ev(i));
                self.init_guess = self.strain_ev(i);
+               fprintf('\nTime %f: Number of iterations = %d', self.t_list(i), self.num_iters);
                self.num_iters = 0;
                self.first_exec = true;
                self.first_residual = 9999;      % Reset first_residual value for use in next time step
 
                
-           end          
+           end
+
+           fprintf('\n')
            
        end
        
