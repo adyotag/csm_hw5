@@ -8,7 +8,7 @@ global nu; nu = 0.3;
 global mu; mu = 30.38E3;        % in MPa
 
 % Initial variables
-delta_t = 0.01; end_time = 4.;
+delta_t = 0.001; end_time = 4.;
 global times; times = 0:delta_t:end_time;
 
 eps_p_hist =  zeros(length(times)+1,3,3);
@@ -50,34 +50,42 @@ for i = 1:length(times)
 end
 
 % Plots
+figure;
+plot(strain_hist(:,1,1),stress_hist(:,1,1)); hold on
 plot(strain_hist(:,2,2),stress_hist(:,2,2));
+plot(strain_hist(:,3,3),stress_hist(:,3,3));
+legend('$$\sigma_{11}$$', '$$\sigma_{22}$$', '$$\sigma_{33}$$', 'interpreter', 'latex');
+title('Cyclic Stress-Strain Response under Plane Strain Conditions');
+ylabel('Stress, $$\sigma$$ (MPa)', 'interpreter', 'latex');
+xlabel('Strain, $$\epsilon$$', 'interpreter', 'latex');
 
+figure;
+plot(strain_hist(:,2,2),strain_hist(:,1,1));
+title('Lateral Strain against Axial Strain');
+ylabel('Lateral Strain, $$\epsilon_{11}$$', 'interpreter', 'latex');
+xlabel('Axial Strain, $$\epsilon_{22}$$', 'interpreter', 'latex');
 
+figure;
+plot(strain_hist(:,2,2), eps_p_hist(:,2,2));
+title('Axial Plastic Strain against Total Axial Strain');
+ylabel('Strain, $$\epsilon_{22}^p$$', 'interpreter', 'latex');
+xlabel('Total Axial Strain, $$\epsilon_{22}$$', 'interpreter', 'latex');
 
-
-
-
-
-
-
-
-
-
-
-
+figure;
+plot(strain_hist(:,2,2), alpha_hist);
+title('Cumulative Plastic Strain against Total Axial Strain');
+ylabel('Cumulative Plastic Strain, $$\alpha$$', 'interpreter', 'latex');
+xlabel('Total Axial Strain, $$\epsilon_{22}$$', 'interpreter', 'latex');
 
 
 %%%%%%%%%%% RELEVANT FUNCTIONS %%%%%%%%%%%
 
-% Takes in strain, imposes plane strain conditions, and outputs change in
-% sigma
+% Imposes plane strain conditions, and outputs strain at next time step
 function r = nextStep(i) % Strain, stress
     global nu; global times;
-    r = zeros(3); t = times(i);
-    
+    r = zeros(3); t = times(i);   
     r(2,2) = 0.01*sin(2*pi*t);  % Computes new strain
     r(1,1) = -nu/(1-nu) * r(2,2);
-    
 end
 
 % Evaluates the yielding function
