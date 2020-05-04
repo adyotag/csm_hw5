@@ -1,6 +1,6 @@
 classdef NR < handle
    properties
-        init_guess = 0.05;                                            % default inital guess for iterative method
+        init_guess = 0.01;                                            % default inital guess for iterative method
         stressR = NaN; residual_handle = NaN;                       % stressR is the loading function specified in the problem statement, strainR is either the first or second constitutive law
         stressInc = NaN; HInc = NaN; init_strain = 0; init_H = 0;   % stressInc and HInc are functions to solve for stress and history variable at next time step
         modified = false; first_exec = true;                        % if modified is true, then we perform modified Newton Raphson method; first_exec detects whether we performed a first iteration
