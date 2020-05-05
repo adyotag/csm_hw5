@@ -86,6 +86,7 @@ function r = nextStep(i, eps_p) % Strain
     r = zeros(3); t = times(i);   
     r(2,2) = 0.01*sin(2*pi*t) - eps_p(2,2);  % Computes new strain; elastic portion
     r(1,1) = -nu/(1-nu) * r(2,2);
+    r(3,3) = -eps_p(3,3);                   % enforces total strain is 0
 end
 
 % Evaluates the yielding function
