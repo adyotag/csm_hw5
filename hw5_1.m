@@ -85,9 +85,9 @@ xlabel('Iterations', 'interpreter', 'latex'); ylabel('$$\log \left| \frac{R}{R_0
 % This computes the stress as a function of time
 function r = stressR(t)
     if (0 <= t) && (t <= 0.5)
-       r = 0.2*t;
+       r = 0.175*t;
     elseif (0.5 < t) && (t <= 1.0)
-       r = 0.2*(1-t);
+       r = 0.175*(1-t);
     end
 end
 
