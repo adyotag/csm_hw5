@@ -9,7 +9,7 @@ classdef NR < handle
         strain_ev = NaN; stress_ev = NaN; t_list = NaN;             % strain_ev is the strain we solve for. stress_ev is from the loading stress we specify. Both are functions of time
         first_residual = NaN; residual_ratio = [];                  % saves the first residual; this is needed for looking at convergence in the assignment; residual_ratio stores the ratio ||Rn/R0||
         num_iters = 0;                                              % Tracks the number of iteration that the NR or modified NR went through
-        abs_thresh = 2.5E-2; rel_thresh = 5E-1;           % Absolute and relative thresholds
+        abs_thresh = 1.E-2; rel_thresh = 2.5E-1;           % Absolute and relative thresholds
    end
    methods
        % Constructor
