@@ -8,7 +8,7 @@ global nu; nu = 0.3;
 global mu; mu = 30.38E3;        % in MPa
 
 % Initial variables
-delta_t = 0.001; end_time = 4.;
+delta_t = 0.0001; end_time = 4.;
 global times; times = 0:delta_t:end_time;
 
 eps_p_hist =  zeros(length(times)+1,3,3);   % stores plastic strain history
